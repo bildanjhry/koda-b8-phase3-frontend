@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       element: <Landing/>
     },
     {
-      path:"my-links/:id",
+      path:"my-links",
       element: <MyLinks/>
     }
     ]

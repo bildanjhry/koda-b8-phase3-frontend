@@ -19,7 +19,7 @@ export default function Navbar(){
                         </Link>
                     </li>
                     <li>
-                        <Link to={""}>
+                        <Link to={"/my-links"}>
                             Link
                         </Link>
                     </li>
