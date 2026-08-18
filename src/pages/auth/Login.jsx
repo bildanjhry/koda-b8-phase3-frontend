@@ -60,7 +60,7 @@ export default function Login() {
                         </button>
                     </main>
                     <footer>
-                        <p>Don't have account yet? <span className="text-(--primary)"><Link>Sign up</Link></span></p>
+                        <p>Don't have account yet? <span className="text-(--primary)"><Link to={"/register"}>Sign up</Link></span></p>
                     </footer>
                 </form>
             </div>
