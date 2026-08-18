@@ -7,6 +7,7 @@
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
   --primary:#004AC6;
+  --border:#C3C6D74D;
   --base:#F3F4F5;
   --accent: #aa3bff;
   --accent-bg: rgba(170, 59, 255, 0.1);
@@ -27,7 +28,6 @@ body {
 }
 
 #root {
-  width: 1126px;
   max-width: 100%;
   text-align: center;
   min-height: 100svh;

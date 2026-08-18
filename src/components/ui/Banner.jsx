@@ -41,7 +41,8 @@ export default function Banner(){
                         <input type="text"
                         id="link"
                         name="link"
-                        className="w-[70%]"/>
+                        placeholder="https://very-long-architectural-url.com/asset-id-99238-x1"
+                        className="w-[70%] h-full pl-4 outline-none"/>
                         <button type="submit" 
                         className="w-[20%] text-white rounded-md font-bold h-12 bg-linear-to-r from-(--primary) to-(--primary)/90">
                             Shorten
