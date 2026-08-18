@@ -3,11 +3,27 @@ import { useNavigate } from "react-router"
 
 export default function Login() {
 	const navigate = useNavigate()
-	function handleSubmit(e){
+	async function handleSubmit(e){
 		e.preventDefault()
 		try{
 			const data = new FormData(e.target)
+			const formated = new URLSearchParams(data)
+			const API = "http://localhost:8082"
+			const res = await fetch(`${API}/auth/login`, {
+				method: "POST",
+				headers:{
+						"Content-Type": "application/x-www-form-urlencoded"
+				},
+				credentials:"include",
+				body: formated.toString()
+			})
+			const result = await res.json()
+			if(!result.success){
+				throw new Error(result.message)
+			}
+			alert(result.message)
 			navigate("/")
+
 		} catch(err){
 			console.error(err.message)
 		}
