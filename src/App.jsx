@@ -7,6 +7,7 @@ import Register from './pages/auth/Register.jsx'
 import MainLayout from './components/Layouts/MainLayout.jsx'
 import Features from './components/ui/Features.jsx'
 import MyLinks from './pages/MyLinks.jsx'
+import CreateLink from './pages/CreateLink.jsx'
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
     {
       path:"my-links",
       element: <MyLinks/>
-    }
+    },
+    {
+      path:"create-link",
+      element: <CreateLink/>
+    },
     ]
   },
   {

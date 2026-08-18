@@ -5,10 +5,50 @@ import { MdOutlineCalendarToday } from "react-icons/md";
 import { FaChartSimple } from "react-icons/fa6";
 import { MdContentCopy } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useEffect, useState } from "react";
 
 export default function MyLinks(){
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        async function getDataLinks() {
+            try {
+                const API = import.meta.env.VITE_API_URL
+                const result = await fetch(`${API}/users/links`, {
+                    credentials:"include"
+                })
+                const res = await result.json()
+                setData(res.results.links)
+            } catch (err) {
+                console.log(err.message)
+            } finally {
+                setLoading(false)
+            }
+        }
+        if(data.length < 1) getDataLinks()
+    },[loading])
+
+    async function handleDelete(shorted) {
+        try{
+            const API = import.meta.env.VITE_API_URL
+            const result = await fetch(`${API}/links/${shorted}`, {
+                method:"DELETE",
+                credentials:"include"
+            })
+            const res = await result.json()
+            if(!res.success){
+                throw new Error(res.message)
+            }
+            setLoading(true)
+            setData([])
+        } catch(err){
+            console.error(err.message)
+        }
+    }
+
     return (
-        <div className="h-100 bg-(--base) flex flex-col items-center">
+        <div className="pb-10 bg-(--base) flex flex-col items-center">
             <div className="flex flex-col w-2xl">
                 <header className="flex flex-col gap-7">
                     <div className="flex justify-between items-center mt-10">
@@ -38,41 +78,47 @@ export default function MyLinks(){
                         </form>
                     </div>
                 </header>
-                <main className="flex flex-col gap-3 mt-10 w-full">
-                    <div className="flex h-28.5 w-full bg-white shadow-md rounded-md px-5 ">
-                        <div 
-                        className="flex w-139 flex-col gap-2 text-left justify-center">
-                            <div className="flex items-center gap-3 text-(--primary) ">
-                                <span>
-                                    <FiLink2/>
-                                </span>
-                                <p>
-                                    localhost:8082/s/sigelsg
-                                </p>
+                <main className="flex flex-col gap-5 mt-10 w-full">
+                    {data?.map((item) => (
+                        <div
+                         key={item.id}
+                         className="flex h-28.5 w-full bg-white shadow-md rounded-md px-5 ">
+                            <div 
+                            className="flex w-139 flex-col gap-2 text-left justify-center">
+                                <div className="flex items-center gap-3 text-(--primary) ">
+                                    <span>
+                                        <FiLink2/>
+                                    </span>
+                                    <p>
+                                       {`localhost:8082/s/${item.shorted}`}
+                                    </p>
+                                </div>
+                                <div className="text-sm">
+                                    <p>{item.url.substring(0, 60)}</p>
+                                </div>
+                                <div className="flex items-center gap-5">
+                                    <section className="flex gap-1 items-center">
+                                        <MdOutlineCalendarToday/>
+                                        <p>OCT 26, 2026</p>
+                                    </section>
+                                    <section className="flex gap-1 items-center">
+                                        <FaChartSimple/>
+                                        <p>221 CLICKS</p>
+                                    </section>
+                                </div>
                             </div>
-                            <div className="text-sm">
-                                <p>https://someting-cools/sgjdsdgoes/laot</p>
-                            </div>
-                            <div className="flex items-center gap-5">
-                                <section className="flex gap-1 items-center">
-                                    <MdOutlineCalendarToday/>
-                                    <p>OCT 26, 2026</p>
-                                </section>
-                                <section className="flex gap-1 items-center">
-                                    <FaChartSimple/>
-                                    <p>221 CLICKS</p>
-                                </section>
+                            <div className="flex-1 text-xl flex items-center justify-between">
+                                <button className="bg-(--primary)/10 p-2 rounded-md">
+                                    <MdContentCopy/>
+                                </button>
+                                <button 
+                                onClick={() => {handleDelete(item.shorted)}}
+                                className="p-1 cursor-pointer">
+                                    <RiDeleteBin6Line/>
+                                </button>
                             </div>
                         </div>
-                        <div className="flex-1 text-xl flex items-center justify-between">
-                            <button className="bg-(--primary)/10 p-2 rounded-md">
-                                <MdContentCopy/>
-                            </button>
-                            <button className="p-1">
-                                <RiDeleteBin6Line/>
-                            </button>
-                        </div>
-                    </div>
+                    ))}
                 </main>
             </div>
         </div>
