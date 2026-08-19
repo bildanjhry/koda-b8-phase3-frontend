@@ -2,8 +2,28 @@ import { FiLink2 } from "react-icons/fi";
 import { MdOutlineNotificationsNone } from "react-icons/md";
 import { MdOutlineSecurity } from "react-icons/md";
 import { TbLogout } from "react-icons/tb";
+import { useNavigate } from "react-router";
 
 export default function Profile(){
+    const navigate = useNavigate()
+    
+    async function handleLogout(){
+        try{
+            const API = import.meta.env.VITE_API_URL
+            const result = await fetch(`${API}/api/logout`, {
+                method:"POST",
+                credentials:"include"
+            })
+            const response = await result.json()
+            if(!response.success){
+                throw new Error(response.message)
+            }
+            console.log(response)
+            navigate("/")
+        } catch(err){
+            console.error(err.message)
+        }
+    }
 
     return(
         <div className="cent-content h-fit flex-1 bg-slate-50">
@@ -83,7 +103,10 @@ export default function Profile(){
 
                         <span className="w-full border-b border-(--border) my-2"></span>
 
-                        <button className="w-full t h-11 rounded-lg bg-(--border)/60 
+                        <button 
+                        onClick={handleLogout}
+                        type="button"
+                        className="w-full t h-11 rounded-lg bg-(--border)/60 
                         border border-(--more-mute)/20 cursor-pointer 
                         text-(--text) font-semibold cent-content text-sm gap-2">
                             <TbLogout size={17}/>
