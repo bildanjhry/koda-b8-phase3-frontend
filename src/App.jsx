@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { createBrowserRouter, RouterProvider } from "react-router"
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './redux/store.js'
+import { Provider } from 'react-redux'
 
 import Landing from "./pages/Landing.jsx"
 import Login from "./pages/auth/Login.jsx"
@@ -10,6 +13,7 @@ import MyLinks from './pages/MyLinks.jsx'
 import NotFound from "./pages/NotFound.jsx"
 import CreateLink from './pages/CreateLink.jsx'
 import Profile from "./pages/Profile.jsx"
+import Protected from './routes/Protected.jsx'
 
 const router = createBrowserRouter([
   {
@@ -21,15 +25,27 @@ const router = createBrowserRouter([
     },
     {
       path:"my-links",
-      element: <MyLinks/>
+      element: (
+        <Protected>
+          <MyLinks/>
+        </Protected>
+        )
     },
     {
       path:"create-link",
-      element: <CreateLink/>
+      element: (
+        <Protected>
+          <CreateLink/>
+        </Protected>
+      )
     },
     {
       path:"profile",
-      element: <Profile/>
+      element: (
+        <Protected>
+          <Profile/>
+        </Protected>
+      )
     },
     ]
   },
@@ -50,7 +66,11 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <RouterProvider router={router}/>
+    <PersistGate persistor={persistor}>
+      <Provider store={store}>
+        <RouterProvider router={router}/>
+      </Provider>
+    </PersistGate>
   )
 }
 

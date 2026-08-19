@@ -2,11 +2,16 @@ import { FiLink2 } from "react-icons/fi";
 import { MdOutlineNotificationsNone } from "react-icons/md";
 import { MdOutlineSecurity } from "react-icons/md";
 import { TbLogout } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { clearSession } from "../redux/reducer/session";
+import dateFormat from "../libs/date-format";
 
 export default function Profile(){
     const navigate = useNavigate()
-    
+    const session = useSelector(state => state.session.session)
+    const dispatch = useDispatch()
+
     async function handleLogout(){
         try{
             const API = import.meta.env.VITE_API_URL
@@ -18,8 +23,8 @@ export default function Profile(){
             if(!response.success){
                 throw new Error(response.message)
             }
-            console.log(response)
             navigate("/")
+            dispatch(clearSession())
         } catch(err){
             console.error(err.message)
         }
@@ -54,12 +59,12 @@ export default function Profile(){
                             <div className="h-22.25 flex flex-col p-6 text-left 
                             justify-center rounded-lg bg-(--border) gap-px">
                                 <p className="tracking-wider text-(--mute)/60 font-semibold">EMAIL ADDRESS</p>
-                                <p className="text-[14px]">alex@mail.com</p>
+                                <p className="text-[14px]">{session.email}</p>
                             </div>
                             <div className="h-22.25 flex flex-col p-6 text-left 
                             justify-center rounded-lg bg-(--border) gap-px">
                                 <p className="tracking-wider text-(--mute)/60 font-semibold">ACCOUNT TENURE</p>
-                                <p className="text-[14px]">Member Since: August 19, 2026</p>
+                                <p className="text-[14px]">Member Since: {dateFormat(session.createdAt)}</p>
                             </div>
                         </section>
 

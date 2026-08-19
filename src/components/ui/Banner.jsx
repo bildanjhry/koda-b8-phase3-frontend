@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { FiLink2 } from "react-icons/fi";
 import { FiCopy } from "react-icons/fi";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { MdLink } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 export default function Banner(){
     const [shorten, setShorten] = useState("")
     const [activeCopy, setActiveCopy] = useState(false)
+    const session = useSelector(state => state.session.session)
+    const navigate = useNavigate()
 
     async function handleSubmit(e){
+        if(!session.id){
+            navigate("/login")
+        }
         e.preventDefault()
         try{
             const data = new FormData(e.target)
