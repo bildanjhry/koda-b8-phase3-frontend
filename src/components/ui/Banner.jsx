@@ -21,7 +21,7 @@ export default function Banner(){
             })
 
             const response = await result.json()
-            setShorten(response.results.newLink)
+            setShorten(response.results.short_url)
 
         } catch(err){
             console.log(err)
@@ -30,10 +30,10 @@ export default function Banner(){
 
     async function copyToClipboard(){
         try {
-            await navigator.clipboard.writeText(shorten);
-            console.log("Copied!");
+            await navigator.clipboard.writeText(shorten)
+            console.log("Copied!")
         } catch (err) {
-            console.error("Gagal copy:", err);
+            console.error("Gagal copy:", err)
         }
     }
 

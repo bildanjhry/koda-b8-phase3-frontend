@@ -58,7 +58,7 @@ export default function CreateLink(){
                             <p className="text-xs mt-6"><i>Ensure your URL starts with http:// or https://</i></p>
                         </div>
                         <div className="flex flex-col gap-2 text-left">
-                            <label htmlFor="slugs">CUSTOM SLUGS (OPTIONAL)</label>
+                            <label htmlFor="slug">CUSTOM SLUGS (OPTIONAL)</label>
                             <div className="flex h-12.25 bg-white rounded-md border border-(--base)">
                                 <div className="w-fit px-4 bg-(--base) cent-content">
                                     <p>short.link/</p>
@@ -66,7 +66,7 @@ export default function CreateLink(){
                                 <input
                                 placeholder="my-custom-slugs" 
                                 className="outline-none flex-1 pl-3"
-                                type="text" id="slugs" name="slugs" />
+                                type="text" id="slug" name="slug" />
                             </div>
                             <p className="text-xs mt-6"><i>Leave blank to generate a random unique identifier.</i></p>
                         </div>

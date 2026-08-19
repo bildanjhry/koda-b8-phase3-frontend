@@ -15,7 +15,7 @@ export default function MyLinks(){
         async function getDataLinks() {
             try {
                 const API = import.meta.env.VITE_API_URL
-                const result = await fetch(`${API}/api/users/links`, {
+                const result = await fetch(`${API}/api/links`, {
                     credentials:"include"
                 })
                 const res = await result.json()
@@ -89,12 +89,12 @@ export default function MyLinks(){
                                     <span>
                                         <FiLink2/>
                                     </span>
-                                    <a href={item.new_link}>
-                                       {`${item.new_link}`}
+                                    <a href={item.shorted_url}>
+                                       {`${item.shorted_url}`}
                                     </a>
                                 </div>
                                 <div className="text-sm">
-                                    <p>{item.url.substring(0, 60)}</p>
+                                    <p>{item.original_url.substring(0, 60)}</p>
                                 </div>
                                 <div className="flex items-center gap-5">
                                     <section className="flex gap-1 items-center">
