@@ -1,6 +1,7 @@
 import { IoFlashOutline } from "react-icons/io5";
 import { PiBracketsCurly } from "react-icons/pi";
 import { MdOutlineGroups } from "react-icons/md";
+
 const features = [
   {
     icon: IoFlashOutline,
@@ -43,9 +44,11 @@ export default function Features() {
           {features.map(({ icon: Icon, title, desc, iconBg, iconColor, barColor }) => (
             <div
               key={title}
-              className="bg-white text-left h-60 rounded-2xl shadow-sm p-6 transition-shadow duration-200 hover:shadow-md"
+              className="bg-white text-left h-60 
+              rounded-2xl shadow-sm p-6 transition-shadow duration-200 hover:shadow-md"
             >
-              <span className={`w-10 h-10 rounded-xl ${iconBg} flex items-center justify-center mb-4`}>
+              <span className={`w-10 h-10 rounded-xl ${iconBg} 
+              flex items-center justify-center mb-4`}>
                 <Icon className={`w-5 h-5 ${iconColor}`} />
               </span>
               <h3 className="font-bold text-base text-gray-900 mb-2">{title}</h3>

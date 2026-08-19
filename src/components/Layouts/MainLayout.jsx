@@ -4,7 +4,7 @@ import Footer from "../ui/Footer"
 
 export default function MainLayout(){
     return(
-        <div className="flex w-screen flex-col overflow-x-hidden">
+        <div className="flex flex-col overflow-x-hidden">
             <Navbar/>
             <main className="flex-1">
                 <Outlet/>

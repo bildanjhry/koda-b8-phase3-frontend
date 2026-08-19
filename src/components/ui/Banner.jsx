@@ -2,9 +2,12 @@ import { useState } from "react";
 import { FiLink2 } from "react-icons/fi";
 import { FiCopy } from "react-icons/fi";
 import { Link } from "react-router";
+import { MdLink } from "react-icons/md";
 
 export default function Banner(){
     const [shorten, setShorten] = useState("")
+    const [activeCopy, setActiveCopy] = useState(false)
+
     async function handleSubmit(e){
         e.preventDefault()
         try{
@@ -31,14 +34,18 @@ export default function Banner(){
     async function copyToClipboard(){
         try {
             await navigator.clipboard.writeText(shorten)
-            console.log("Copied!")
+            setActiveCopy(true)
+            setTimeout(() => {
+                setActiveCopy(false)
+            },500)
         } catch (err) {
-            console.error("Gagal copy:", err)
+            console.error(err)
         }
     }
 
     return(
-        <div className="h-169 cent-content size-200 bg-radial from-[#004AC60D] to-[#004AC600] w-full flex-col gap-10">
+        <div className="h-169 cent-content size-200 bg-radial 
+        from-[#004AC60D] to-[#004AC600] w-full flex-col gap-10">
 
             <article className="flex flex-col items-center gap-3 w-[80%]">
                 <h1>
@@ -53,13 +60,13 @@ export default function Banner(){
 
             <div className="cent-content gap-4 text-[14px]">
                 <button type="button" 
-                className="text-white w-35 rounded-md font-bold h-12 
-                bg-linear-to-r from-(--primary) to-(--primary)/80">
+                className="text-white cursor-pointer w-35 rounded-md font-bold h-12 
+                bg-linear-to-r from-[#004AC6] to-[#2563EB]">
                     Get Started
                 </button>
                 <button 
                 type="button"
-                className="w-35 h-12 rounded-md border border-(--border) 
+                className="w-35 h-12 rounded-md cursor-pointer border border-(--border) 
                 text-(--primary) font-bold">
                     Learn More
                 </button>
@@ -72,11 +79,14 @@ export default function Banner(){
                 rounded-lg shadow-cus">
                     <div className="w-full h-full bg-white rounded-lg flex justify-between 
                     items-center px-2">
+                        <div className="w-10 pt-1 text-(--mute) cent-content text-xl h-full bg-white">
+                            <MdLink/>
+                        </div>
                         <input type="text"
                         id="url"
                         name="url"
                         placeholder="https://very-long-architectural-url.com/asset-id-99238-x1"
-                        className="flex-1 h-full pt-1 pl-4 outline-none"/>
+                        className="flex-1 h-full pt-1 outline-none"/>
                         <button type="submit" 
                         className="w-[20%] cursor-pointer text-white 
                         rounded-md font-bold h-12 bg-linear-to-r from-(--primary) to-(--primary)/90">
@@ -87,10 +97,10 @@ export default function Banner(){
                 
                 { shorten !== "" &&
                 <div className="h-15 mt-xp flex font-semibold text-sm items-center overflow-hidden 
-                bg-white rounded-md shadow-md w-full">
+                bg-white rounded-md shadow-md w-full relative transition duration-75 ease-in-out">
                     <button 
                     type="button"
-                    className="w-10 ml-2 pl-4 rounded-l-md bg-gray-50  text-(--primary) h-[80%] 
+                    className="w-10 ml-2 pl-4 rounded-l-md bg-gray-50 text-(--primary) h-[80%] 
                     cent-content cursor-pointer">
                         <FiLink2 className="text-lg"/>
                     </button>
@@ -99,10 +109,19 @@ export default function Banner(){
                             <p className="text-(--primary)">{shorten}</p>
                         </Link>
                     </div>
+                    
+                    { activeCopy &&
+                    <div className="w-15 h-7 bg-(--accent) right-14 cent-content 
+                    top-4 text-[10px] font-semibold text-[#394C84] rounded-md absolute">
+                        COPIED
+                    </div>
+                    }
+
                     <button 
                     type="button"
                     onClick={copyToClipboard}
-                    className="cursor-pointer cent-content h-[80%] bg-gray-50 flex mr-2 rounded-r-md w-15">
+                    className="cursor-pointer
+                    cent-content h-[80%] bg-gray-50 flex mr-2 rounded-r-md w-15">
                         <FiCopy className="text-md"/>
                     </button>
                 </div> }

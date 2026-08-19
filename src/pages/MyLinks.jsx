@@ -134,8 +134,8 @@ export default function MyLinks(){
 
                             <div className="flex-1 text-xl flex items-center relative justify-between">
                                 { activeCopy && url === item.shorted_url &&
-                                <div className="w-15 h-7 bg-(--accent) right-10 cent-content 
-                                top-2 text-xs text-[#394C84] rounded-md absolute">
+                                <div className="w-15 h-7 bg-(--accent) right-20 cent-content 
+                                top-11 text-[10px] font-semibold text-[#394C84] rounded-md absolute">
                                     COPIED
                                 </div> 
                                 }

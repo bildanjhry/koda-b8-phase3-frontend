@@ -22,7 +22,7 @@ export default function Footer(){
     ]
 
     return(
-        <div className="h-30.25 bg-(--base) font-semibold text-(--mute) 
+        <div className="h-30.25 bg-(--base) text-[14px] font-semibold text-(--mute) 
 				px-10 w-full flex items-center justify-between">
             <section>
                 <p>© 2026 SHORTLINK. THE DIGITAL ARCHITECT.</p>
