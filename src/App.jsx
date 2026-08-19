@@ -7,6 +7,7 @@ import Register from './pages/auth/Register.jsx'
 import MainLayout from './components/Layouts/MainLayout.jsx'
 import Features from './components/ui/Features.jsx'
 import MyLinks from './pages/MyLinks.jsx'
+import NotFound from "./pages/NotFound.jsx"
 import CreateLink from './pages/CreateLink.jsx'
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
     path:"/register",
     element: <Register/>
   },
+  {
+    path:"*",
+    element: <NotFound/>
+  }
 ])
 
 function App() {
