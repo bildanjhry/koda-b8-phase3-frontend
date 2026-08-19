@@ -12,7 +12,7 @@ export default function CreateLink(){
             const data = new FormData(e.target)
             const formated = new URLSearchParams(data)
             const API = import.meta.env.VITE_API_URL
-            const result = await fetch(`${API}/links`, {
+            const result = await fetch(`${API}/api/links`, {
                 method: "POST",
                 headers:{
                     "Content-Type":"application/x-www-form-urlencoded"

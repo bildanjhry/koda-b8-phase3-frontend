@@ -11,7 +11,7 @@ export default function Banner(){
             const data = new FormData(e.target)
             const formated = new URLSearchParams(data)
             const API = import.meta.env.VITE_API_URL
-            const result = await fetch(`${API}/links`, {
+            const result = await fetch(`${API}/api/links`, {
                 method: "POST",
                 headers:{
                     "Content-Type":"application/x-www-form-urlencoded"
@@ -21,7 +21,6 @@ export default function Banner(){
             })
 
             const response = await result.json()
-            console.log(response)
             setShorten(response.results.newLink)
 
         } catch(err){

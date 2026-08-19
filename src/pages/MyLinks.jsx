@@ -15,7 +15,7 @@ export default function MyLinks(){
         async function getDataLinks() {
             try {
                 const API = import.meta.env.VITE_API_URL
-                const result = await fetch(`${API}/users/links`, {
+                const result = await fetch(`${API}/api/users/links`, {
                     credentials:"include"
                 })
                 const res = await result.json()
@@ -29,10 +29,10 @@ export default function MyLinks(){
         if(data.length < 1) getDataLinks()
     },[loading])
 
-    async function handleDelete(shorted) {
+    async function handleDelete(id) {
         try{
             const API = import.meta.env.VITE_API_URL
-            const result = await fetch(`${API}/links/${shorted}`, {
+            const result = await fetch(`${API}/api/links/${id}`, {
                 method:"DELETE",
                 credentials:"include"
             })
@@ -89,9 +89,9 @@ export default function MyLinks(){
                                     <span>
                                         <FiLink2/>
                                     </span>
-                                    <p>
-                                       {`localhost:8082/s/${item.shorted}`}
-                                    </p>
+                                    <a href={item.new_link}>
+                                       {`${item.new_link}`}
+                                    </a>
                                 </div>
                                 <div className="text-sm">
                                     <p>{item.url.substring(0, 60)}</p>
@@ -112,7 +112,7 @@ export default function MyLinks(){
                                     <MdContentCopy/>
                                 </button>
                                 <button 
-                                onClick={() => {handleDelete(item.shorted)}}
+                                onClick={() => {handleDelete(item.id)}}
                                 className="p-1 cursor-pointer">
                                     <RiDeleteBin6Line/>
                                 </button>

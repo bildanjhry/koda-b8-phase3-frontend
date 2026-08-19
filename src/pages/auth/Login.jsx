@@ -8,8 +8,8 @@ export default function Login() {
 		try{
 			const data = new FormData(e.target)
 			const formated = new URLSearchParams(data)
-			const API = "http://localhost:8082"
-			const res = await fetch(`${API}/auth/login`, {
+			const API = import.meta.env.VITE_API_URL
+			const res = await fetch(`${API}/api/login`, {
 				method: "POST",
 				headers:{
 						"Content-Type": "application/x-www-form-urlencoded"
@@ -34,8 +34,9 @@ export default function Login() {
             <h3>ShortLink</h3>
             <div className="flex flex-col w-[400px] bg-white p-7">
                 <form 
-								onSubmit={handleSubmit}
-								action="" className="flex flex-col gap-8 w-full">
+					onSubmit={handleSubmit}
+				    action="" 
+                    className="flex flex-col gap-8 w-full">
                     <header className="text-left">
                         <p className="text-2xl">Welcome Back</p>
                         <p>Please enter your details to sign in.</p>

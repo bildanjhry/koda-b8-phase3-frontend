@@ -9,8 +9,8 @@ export default function Register() {
 			try{
 				const data = new FormData(e.target)
 				const formated = new URLSearchParams(data)
-				const API = "http://localhost:8082"
-				const res = await fetch(`${API}/auth/register`, {
+				const API = import.meta.env.VITE_API_URL
+				const res = await fetch(`${API}/api/register`, {
 					method: "POST",
 					headers:{
 							"Content-Type": "application/x-www-form-urlencoded"
