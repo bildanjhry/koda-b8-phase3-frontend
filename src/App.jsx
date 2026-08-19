@@ -9,6 +9,7 @@ import Features from './components/ui/Features.jsx'
 import MyLinks from './pages/MyLinks.jsx'
 import NotFound from "./pages/NotFound.jsx"
 import CreateLink from './pages/CreateLink.jsx'
+import Profile from "./pages/Profile.jsx"
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
     {
       path:"create-link",
       element: <CreateLink/>
+    },
+    {
+      path:"profile",
+      element: <Profile/>
     },
     ]
   },
