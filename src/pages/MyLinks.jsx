@@ -1,15 +1,21 @@
+import dateFormat from "../libs/date-format";
+
 import { IoSearch } from "react-icons/io5";
-import { FiLink2 } from "react-icons/fi";
+import { IoLink } from "react-icons/io5";
 import { IoFilterSharp } from "react-icons/io5";
-import { MdOutlineCalendarToday } from "react-icons/md";
+import { IoCalendarNumber } from "react-icons/io5";
 import { FaChartSimple } from "react-icons/fa6";
 import { MdContentCopy } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
+import { FaChevronLeft } from "react-icons/fa6";
+import { FaChevronRight } from "react-icons/fa6";
 
 export default function MyLinks(){
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
+    const [activeCopy, setActiveCopy] = useState(false)
+    const [url, setUrl] = useState("")
 
     useEffect(() => {
         async function getDataLinks() {
@@ -47,23 +53,40 @@ export default function MyLinks(){
         }
     }
 
+
+    async function copyToClipboard(shorten){
+        try {
+            setUrl(shorten)
+            await navigator.clipboard.writeText(shorten)
+            setActiveCopy(true)
+            setTimeout(() => {
+                setActiveCopy(false)
+                setUrl("")
+            },500)
+        } catch (err) {
+            console.error(err)
+        } 
+    }
+
     return (
-        <div className="pb-10 bg-(--base) flex flex-col items-center">
+        <div className="pb-10 bg-slate-50 flex flex-col items-center">
             <div className="flex flex-col w-2xl">
+
                 <header className="flex flex-col gap-7">
                     <div className="flex justify-between items-center mt-10">
                         <section className="flex text-left flex-col gap-1">
-                            <h2>My Links</h2>
+                            <p className="text-[24px] font-semibold">My Links</p>
                             <p>Manage and track your shortened digital assets.</p>
                         </section>
                         <section className="flex flex-col text-right gap-1">
-                            <h3>TOTAL ACTIVE</h3>
-                            <p className="text-xl font-semibold text-(--primary)">124</p>
+                            <h3 className="text-(--mute) font-semibold tracking-widest">TOTAL ACTIVE</h3>
+                            <p className="text-xl font-semibold text-(--primary)">{data.length}</p>
                         </section>
                     </div>
+
                     <div>
                         <form 
-                        className="flex rounded-md bg-white h-12.25 rouded-md"
+                        className="flex shadow-md rounded-md bg-white h-12.25 rouded-md"
                         action="">
                             <div className="w-12 cent-content">
                                 <IoSearch/>
@@ -78,48 +101,72 @@ export default function MyLinks(){
                         </form>
                     </div>
                 </header>
+
                 <main className="flex flex-col gap-5 mt-10 w-full">
                     {data?.map((item) => (
                         <div
                          key={item.id}
-                         className="flex h-28.5 w-full bg-white shadow-md rounded-md px-5 ">
+                         className="flex h-28.5 w-full bg-white shadow-sm rounded-md px-5 ">
                             <div 
                             className="flex w-139 flex-col gap-2 text-left justify-center">
-                                <div className="flex items-center gap-3 text-(--primary) ">
-                                    <span>
-                                        <FiLink2/>
+                                <div className="flex items-center gap-2 font-semibold text-[14px] text-(--primary) ">
+                                    <span className="text-lg">
+                                        <IoLink/>
                                     </span>
                                     <a href={item.shorted_url}>
                                        {`${item.shorted_url}`}
                                     </a>
                                 </div>
-                                <div className="text-sm">
+                                <div className="text-sm text-(--text)">
                                     <p>{item.original_url.substring(0, 60)}</p>
                                 </div>
-                                <div className="flex items-center gap-5">
+                                <div className="flex items-center gap-5 text-sm font-semibold text-(--more-mute)">
                                     <section className="flex gap-1 items-center">
-                                        <MdOutlineCalendarToday/>
-                                        <p>OCT 26, 2026</p>
+                                        <IoCalendarNumber className="text-xs  relative"/>
+                                        <p>{dateFormat(item.createdAt)}</p>
                                     </section>
                                     <section className="flex gap-1 items-center">
-                                        <FaChartSimple/>
+                                        <FaChartSimple className="text-xs"/>
                                         <p>221 CLICKS</p>
                                     </section>
                                 </div>
                             </div>
-                            <div className="flex-1 text-xl flex items-center justify-between">
-                                <button className="bg-(--primary)/10 p-2 rounded-md">
+
+                            <div className="flex-1 text-xl flex items-center relative justify-between">
+                                { activeCopy && url === item.shorted_url &&
+                                <div className="w-15 h-7 bg-(--accent) right-10 cent-content 
+                                top-2 text-xs text-[#394C84] rounded-md absolute">
+                                    COPIED
+                                </div> 
+                                }
+                                
+                                <button 
+                                type="button"
+                                onClick={() => {copyToClipboard(item.shorted_url)}}
+                                className="bg-(--accent) text-[#394C84] cursor-pointer hover:bg-(--accent)/70 p-2 rounded-md">
                                     <MdContentCopy/>
                                 </button>
-                                <button 
+                                <button
+                                type="button" 
                                 onClick={() => {handleDelete(item.id)}}
-                                className="p-1 cursor-pointer">
+                                className="p-1 cursor-pointer text-(--more-mute)">
                                     <RiDeleteBin6Line/>
                                 </button>
                             </div>
                         </div>
                     ))}
                 </main>
+
+                <footer className="h-20 mt-5 flex justify-between items-center w-full">
+                    <button className="flex items-center gap-1 text-(--mute)">
+                        <FaChevronLeft className="text-[11px]"/>
+                        <p className="font-semibold text-sm">Prev Page</p>
+                    </button>
+                    <button className="flex items-center gap-1 text-(--mute)">
+                        <p className="font-semibold text-sm">Next Page</p>
+                        <FaChevronRight className="text-[11px]"/>
+                    </button>
+                </footer>
             </div>
         </div>
     )

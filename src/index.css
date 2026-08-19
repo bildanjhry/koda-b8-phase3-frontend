@@ -2,15 +2,16 @@
 
 :root {
   --text: #434655;
-  --mute:#64748B;
+  --mute: #64748B;
   --text-h: #08060d;
   --bg: #fff;
+  --more-mute: #94A3B8;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
-  --primary:#004AC6;
-  --border:#C3C6D74D;
-  --base:#F3F4F5;
-  --accent: #aa3bff;
+  --primary: #004AC6;
+  --border: #C3C6D74D;
+  --base: #F3F4F5;
+  --accent: #004AC61A;
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
@@ -23,6 +24,8 @@
 
   @theme {
     --shadow-cus: 0 20px 50px 0 rgba(0, 74, 198, 0.1);
+    --shadow-button: 0px 4px 6px -4px rgba(0, 74, 198, 0.2),
+      0px 10px 15px -3px rgba(0, 74, 198, 0.2);
   }
 
 }
@@ -51,19 +54,23 @@ h2 {
 h1 {
   font-size: 65px;
   letter-spacing: -1.68px;
+
   @media (max-width: 1024px) {
     font-size: 36px;
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 32px;
   line-height: 118%;
   letter-spacing: -0.24px;
+
   @media (max-width: 1024px) {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
