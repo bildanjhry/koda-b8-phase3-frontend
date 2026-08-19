@@ -9,7 +9,7 @@ export default function Navbar(){
         <div className="h-16 flex w-full shadow-sm items-center px-10 justify-between">
             <section className="flex items-center gap-8 h-full">
                 <div>
-                    <p className="font-black text-[20px]">ShortLink</p>
+                    <p className="font-[1000] text-[20px]">ShortLink</p>
                 </div>
                 <ul className="flex items-end h-full gap-5 text-[14px]">
                     <li className={classNames(
