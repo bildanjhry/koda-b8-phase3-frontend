@@ -1,5 +1,7 @@
 import { Link } from "react-router"
 import { useNavigate } from "react-router"
+import { HiArrowRight } from "react-icons/hi2";
+import { FaArrowRight } from "react-icons/fa6";
 
 export default function Register() {
 		const navigate = useNavigate()
@@ -30,46 +32,74 @@ export default function Register() {
 			}
 		}
     return (
-        <div className="cent-content w-full h-screen gap-3 flex-col bg-gray-200">
-            <h3>ShortLink</h3>
-            <div className="flex flex-col w-[400px] bg-white p-7">
+        <div className="cent-content w-full h-screen overflow-hidden gap-7 flex-col bg-slate-50 relative">
+            <div className="w-lg h-90.25 absolute -left-25 -top-20 
+            rounded-full bg-[#004AC60D] blur-2xl z-5">
+
+            </div>
+            
+            <div className="w-lg h-90.25 absolute -right-3 bottom-0 
+            rounded-full bg-[#495C950D] blur-2xl">
+
+            </div>
+
+            <p className="text-xl font-[1000]">ShortLink</p>
+            <div className="flex flex-col w-100 rounded-lg z-10 border border-(--border) shadow-sm bg-white p-9">
                 <form 
-								onSubmit={handleSubmit}
-								action="" className="flex flex-col gap-8 w-full">
+                    onSubmit={handleSubmit}
+                    action="" 
+                    className="flex flex-col text-(--text) gap-5 w-full">
                     <header className="text-left">
-                        <p className="text-2xl">Create Account</p>
+                        <p className="text-2xl font-semibold text-(--text-h)">Let's Go!</p>
                         <p>Join the elite architects of the web.</p>
                     </header>
-                    <main className="flex flex-col gap-5">
+
+                    <main className="flex mt-2 flex-col gap-5 text-[14px]">
                         <div className="flex flex-col text-left gap-1">
                             <label htmlFor="email">Email Address</label>
-                            <input 
-                                className="h-10.5 outline-none pl-4 rounded-md border border-(--border)"
+                            <input
+                                required
+                                placeholder="name@company.com" 
+                                className="h-10.5 text-[14px] outline-none pl-4 rounded-md border border-(--border)"
                                 type="text" name="email" id="email" />
                         </div>
                         <div className="flex flex-col text-left gap-1">
-                            <label htmlFor="password">Password</label>
-                            <input 
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="password">Password</label>
+                            </div>
+                            <input
+                                required
+                                placeholder="Your secret password" 
                                 className="h-10.5 outline-none pl-4 rounded-md border border-(--border)"
                                 type="password" name="password" id="password" />
                         </div>
-												<div className="flex flex-col text-left gap-1">
-                            <label htmlFor="confirm-pass">Confirm Password</label>
-                            <input 
+                        <div className="flex flex-col text-left gap-1">
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="password">Confirm Password</label>
+                            </div>
+                            <input
+                                required
+                                placeholder="Your secret password" 
                                 className="h-10.5 outline-none pl-4 rounded-md border border-(--border)"
-                                type="password" name="confirm-pass" id="confirm-pass" />
+                                type="password" name="password" id="password" />
                         </div>
                         <button 
                             type="submit"
-                            className="w-full cursor-pointer h-10.5 rounded-md bg-(--primary) text-white">
-                            Register
+                            className="w-full cursor-pointer 
+                            shadow-button cent-content font-semibold gap-2 h-11 rounded-md bg-(--primary) text-white">
+                            <p>Sign Up</p>
+                            <FaArrowRight/>
                         </button>
+
+                        <p>By signing up, you agree to our Terms of Service and </p>
+
                     </main>
-                    <footer>
-                        <p>Don't have account yet? <span className="text-(--primary)"><Link>Sign up</Link></span></p>
-                    </footer>
                 </form>
             </div>
+            <footer>
+                <p className="text-[14px]">Already have an account? <span className="text-(--primary)">
+                    <Link className="font-semibold" to={"/login"}>Login</Link></span></p>
+            </footer>
         </div>
     )
 }

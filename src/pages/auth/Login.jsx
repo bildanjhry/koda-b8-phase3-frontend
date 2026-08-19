@@ -32,9 +32,19 @@ export default function Login() {
 	}
 
     return (
-        <div className="cent-content w-full h-screen gap-7 flex-col bg-slate-50">
+        <div className="cent-content w-full h-screen overflow-hidden gap-7 flex-col bg-slate-50 relative">
+            <div className="w-lg h-90.25 absolute -left-25 -top-20 
+            rounded-full bg-[#004AC60D] blur-2xl z-5">
+
+            </div>
+            
+            <div className="w-lg h-90.25 absolute -right-3 bottom-0 
+            rounded-full bg-[#495C950D] blur-2xl">
+
+            </div>
+
             <p className="text-xl font-[1000]">ShortLink</p>
-            <div className="flex flex-col w-100 rounded-lg border border-(--border) shadow-sm bg-white p-8">
+            <div className="flex flex-col w-100 rounded-lg z-10 border border-(--border) shadow-sm bg-white p-9">
                 <form 
 					onSubmit={handleSubmit}
 				    action="" 
@@ -48,6 +58,7 @@ export default function Login() {
                         <div className="flex flex-col text-left gap-1">
                             <label htmlFor="email">Email Address</label>
                             <input
+                                required
                                 placeholder="name@company.com" 
                                 className="h-10.5 text-[14px] outline-none pl-4 rounded-md border border-(--border)"
                                 type="text" name="email" id="email" />
@@ -57,7 +68,9 @@ export default function Login() {
                                 <label htmlFor="password">Password</label>
                                 <p className="text-(--primary) text-[13px]">Forgot Password?</p>
                             </div>
-                            <input 
+                            <input
+                                required
+                                placeholder="Your secret password" 
                                 className="h-10.5 outline-none pl-4 rounded-md border border-(--border)"
                                 type="password" name="password" id="password" />
                         </div>
@@ -75,7 +88,7 @@ export default function Login() {
                             <span className="h-px w-20 bg-(--border)"></span>
                         </div>
                         
-                        <div className="w-full h-12 mb-4 border-2 border-(--border) rounded-lg content-center">
+                        <div className="w-full font-semibold h-12 mb-4 border-2 border-(--border) rounded-lg content-center">
                             Sign in with Google
                         </div>
 
@@ -83,8 +96,8 @@ export default function Login() {
                 </form>
             </div>
             <footer>
-                <p>Don't have account yet? <span className="text-(--primary)">
-                    <Link to={"/register"}>Sign up</Link></span></p>
+                <p className="text-[14px]">Don't have account yet? <span className="text-(--primary)">
+                    <Link className="font-semibold" to={"/register"}>Sign up</Link></span></p>
             </footer>
         </div>
     )

@@ -107,13 +107,13 @@ export default function Navbar(){
                         <IoPerson className="text-(--mute)"/>
                     </div>
                 </Link>
-                <Link 
+                {/* <Link 
                 to={"/register"}
                 className="bg-(--primary) cent-content rounded-lg shadow-button cursor-pointer 
                 font-semibold text-white h-9 w-21.75"
                 type="button">
                     Log Out
-                </Link>
+                </Link> */}
             </section>
             }
         </div>
