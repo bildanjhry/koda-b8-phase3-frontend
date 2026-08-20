@@ -72,13 +72,13 @@ export default function Banner(){
 
             <div className="cent-content gap-4 text-[14px]">
                 <button type="button" 
-                className="text-white cursor-pointer w-35 rounded-md font-bold h-12 
+                className="text-white cursor-pointer w-35 rounded-lg font-bold h-12 
                 bg-linear-to-r from-[#004AC6] to-[#2563EB]">
                     Get Started
                 </button>
                 <button 
                 type="button"
-                className="w-35 h-12 rounded-md cursor-pointer border border-(--border) 
+                className="w-35 h-12 rounded-lg cursor-pointer border border-(--border) 
                 text-(--primary) font-bold">
                     Learn More
                 </button>
@@ -103,8 +103,8 @@ export default function Banner(){
                         <button type="submit" 
                         disabled={loading}
                         className={classNames(`w-[20%] cursor-pointer text-white 
-                        rounded-md font-bold h-12 cent-content gap-2`,
-                        {'bg-linear-to-r from-(--primary) to-(--primary)/90': !loading},
+                        rounded-lg font-bold h-12 cent-content gap-2`,
+                        {'bg-(--primary)': !loading},
                         {'bg-(--primary)/70': loading}
                         )}>
                         {loading &&

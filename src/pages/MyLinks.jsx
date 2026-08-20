@@ -19,6 +19,7 @@ export default function MyLinks(){
     const [loading, setLoading] = useState(false)
     const [loadingDel, setLoadingDel] = useState(false)
     const [activeCopy, setActiveCopy] = useState(false)
+    const [linkId, setLinkId] = useState(null)
     const [url, setUrl] = useState("")
 
     useEffect(() => {
@@ -41,8 +42,9 @@ export default function MyLinks(){
     },[loading])
 
     async function handleDelete(id) {
+        setLoadingDel(true)
+        setLinkId(id)
         try{
-            setLoadingDel(true)
             const API = import.meta.env.VITE_API_URL
             const result = await fetch(`${API}/api/links/${id}`, {
                 method:"DELETE",
@@ -58,6 +60,7 @@ export default function MyLinks(){
             console.error(err.message)
         } finally {
             setLoadingDel(false)
+            setLinkId(null)
         }
     }
 
@@ -77,7 +80,7 @@ export default function MyLinks(){
     }
 
     return (
-        <div className="pb-10 bg-slate-50 h-screen flex flex-col items-center">
+        <div className="pb-10 bg-slate-50 min-h-screen h-fit flex flex-col items-center">
             <div className="flex flex-col w-2xl">
 
                 <header className="flex flex-col gap-7">
@@ -161,7 +164,7 @@ export default function MyLinks(){
                                 disabled={loadingDel}
                                 onClick={() => {handleDelete(item.id)}}
                                 className="p-1 cursor-pointer text-(--more-mute)">
-                                    {loadingDel ? 
+                                    {loadingDel && linkId === item.id ? 
                                     <CgSpinnerTwo className="animate-spin text-red-600"/>:
                                     <RiDeleteBin6Line className="text-red-600"/>
                                     }

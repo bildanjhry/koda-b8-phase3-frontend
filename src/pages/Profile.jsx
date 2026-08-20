@@ -8,6 +8,7 @@ import { clearSession } from "../redux/reducer/session";
 import dateFormat from "../libs/date-format";
 import { useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { LuImageOff } from "react-icons/lu";
 
 export default function Profile(){
     const navigate = useNavigate()
@@ -51,9 +52,9 @@ export default function Profile(){
                     </header>
                     
                     <main className="flex flex-col gap-7">
-                        <section className="flex items-center gap-7 h-24">
-                            <div className="rounded-lg h-full w-24 bg-(--border)">
-
+                        <section className="flex items-center gap-5 h-24">
+                            <div className="rounded-lg h-full cent-content w-24 bg-(--border)">
+                                <LuImageOff className="text-(--more-mute)/80" size={40}/>
                             </div>
                             <div className="h-full flex justify-center items-start flex-col ">
                                 <p className="text-(--text-h) font-semibold">{session.profile.name}</p>
@@ -97,9 +98,13 @@ export default function Profile(){
                                     <MdOutlineNotificationsNone size={20} className="text-(--more-mute)"/>
                                     <p>Email Notifications</p>
                                 </div>
-                                <div className="w-12 h-6 rounded-full bg-(--primary)">
 
+                                <div className="w-12 h-6 relative rounded-full bg-(--primary) cursor-pointer">
+                                    <div className="h-[84.5%] w-5 shadow-md
+                                    top-px right-0.5 rounded-full absolute bg-white">
+                                    </div>
                                 </div>
+
                             </div>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">

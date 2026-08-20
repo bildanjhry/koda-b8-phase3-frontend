@@ -5,11 +5,22 @@ import { AiOutlineEye } from "react-icons/ai";
 import { RiFlashlightLine } from "react-icons/ri";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import { MdQrCode2 } from "react-icons/md";
+import { CgSpinnerTwo } from "react-icons/cg";
+import { useState } from "react";
+import classNames from "classnames";
 
 export default function CreateLink(){
+    const [loading, setLoading] = useState(false)
+    const [url, setUrl] = useState({origin:"", slug:""})
+    const [alert, setAlert] = useState({
+        event:false, 
+        status:null, 
+        message:""
+    })
 
     async function handleSubmit(e) {
         e.preventDefault()
+        setLoading(true)
        try{
             const data = new FormData(e.target)
             const formated = new URLSearchParams(data)
@@ -23,39 +34,74 @@ export default function CreateLink(){
                 body: formated.toString()
             })
             const response = await result.json()
+            if(!response.success){
+                throw new Error(response.message)
+            }
+            setAlert({
+                event:true, 
+                status:"SUCCESS", 
+                message:"Succes Shorten Url!"
+            })
         } catch(err){
+            setAlert({
+                event:true, 
+                status:"FAILED", 
+                message:err.message
+            })
             console.log(err)
+        } finally {
+            setUrl({origin:"", slug:""})
+            setLoading(false)
+            setTimeout(() => {
+                setAlert({event:false, status:null, message:""})
+            },2000)
         }
     }
 
     return(
         <div className="pb-10 bg-slate-50 flex flex-col items-center">
             <div className="mt-10 flex flex-col w-2xl gap-8">
-                <header className="flex flex-col items-start gap-3">
+                <header className="flex flex-col items-start gap-2">
                     <Link 
-                    className="flex items-center text-left gap-2 text-(--primary)"
+                    className="flex items-center mb-2 text-left text-[14px] gap-2 text-(--primary)"
                     to={"/"}>
-                    <GoArrowLeft/>
+                    <GoArrowLeft size={18}/>
                     <p>Go Back to Dashboard</p>
                     </Link>
                     <p className="text-2xl font-semibold">Create New Short Link</p>
-                    <p className="text-(--text)">Transform your long URLs into clean, manageable assets.</p>
+                    <p className="text-(--text) text-[14px]">Transform your long URLs into clean, manageable assets.</p>
                 </header>
 
                 <main className="bg-white rounded-lg border 
                 border-(--border) w-full h-fit p-7">
+
+                    { alert.event &&
+                    <div className={classNames(
+                     `w-full h-11 mb-2 cent-content text-[14px] rounded-lg`,
+                     {'bg-green-100 text-green-600': alert.status === "SUCCESS"},
+                     {'bg-red-100 text-red-600': alert.status === "FAILED"}
+                     )}>
+                        <p>{alert.message}</p>
+                    </div>
+                    }
+
                     <form
                     onSubmit={handleSubmit}
                     className="flex flex-col gap-6"
                     action="">
                         <div className="flex flex-col gap-2 text-left">
                             <label htmlFor="url" 
-                            className="text-[14px] font-semibold ">DESTINATION URL <span className="text-red-500">*</span></label>
+                            className="text-[14px] font-semibold ">DESTINATION URL <span className="text-red-500">*</span>
+                            </label>
                             <div className="flex h-12.25 bg-(--base) rounded-md ">
                                 <div className="w-10 text-(--mute) ml-1 cent-content">
                                     <FiLink2/>
                                 </div>
                                 <input
+                                onChange={(e) => setUrl((prev) => 
+                                    { return {...prev, origin:e.target.value}})}
+                                value={url.origin}
+                                required
                                 placeholder="https://example.com/your-long-url-here" 
                                 className="outline-none flex-1"
                                 type="text" id="url" name="url" />
@@ -73,6 +119,9 @@ export default function CreateLink(){
                                     <p>short.link/</p>
                                 </div>
                                 <input
+                                onChange={(e) => setUrl((prev) => 
+                                    { return {...prev, slug:e.target.value}})}
+                                value={url.slug}
                                 placeholder="my-custom-slugs" 
                                 className="outline-none flex-1 pl-3"
                                 type="text" id="slug" name="slug" />
@@ -81,7 +130,8 @@ export default function CreateLink(){
                                 <i>Leave blank to generate a random unique identifier.</i></p>
                         </div>
 
-                        <div className="h-19.5 border border-(--primary)/10 flex p-5 rounded-md w-full bg-[#DBE1FF4D]">
+                        <div className="h-19.5 border border-(--primary)/10 flex p-5 
+                        rounded-md w-full bg-[#DBE1FF4D]">
                             <div className="flex w-5 text-(--primary) justify-center items-start">
                                 <AiOutlineEye className="text-xl"/>
                             </div>
@@ -97,15 +147,24 @@ export default function CreateLink(){
                         <div className="flex mt-4 items-center gap-4">
                             <button 
                             type="submit"
-                            className="text-white cursor-pointer h-12 rounded-lg w-42.75 
-                            bg-linear-to-r from-[#004AC6] to-[#2563EB] shadow-button cent-content gap-2">
+                            disabled={loading}
+                            className={classNames(
+                            `text-white cursor-pointer h-12 rounded-lg w-42.75 
+                            shadow-button cent-content gap-2`,
+                            {'bg-linear-to-r from-[#004AC6] to-[#2563EB]' : !loading},
+                            {'bg-(--primary)/70' : loading}
+                            )}>
+                                { loading && <CgSpinnerTwo className="animate-spin text-white/70"/> }
                                 <p>Create Link</p>
                                 <RiFlashlightLine/>
                             </button>
+
                             <button 
-                            className="text-[#495C95] cursor-pointer h-12 rounded-md w-25 cent-content gap-2">
+                            className="text-[#495C95] cursor-pointer h-12 rounded-md w-25 
+                            cent-content gap-2">
                                 <p>Cancel</p>
                             </button>
+                            
                         </div>
                     </form>
                 </main>
@@ -117,7 +176,9 @@ export default function CreateLink(){
                         </div>
                         <div className="flex flex-col gap-1 items-start text-left">
                             <p className="font-semibold text-sm">Real-time Analytics</p>
-                            <p className="text-(--text) text-xs">Track every click, geographical location, and referral source instantly.</p>
+                            <p className="text-(--text) text-xs">
+                                Track every click, geographical location, and referral source instantly.
+                            </p>
                         </div>
                     </section>
                     <section className="flex items-start gap-2 h-full">
@@ -126,7 +187,9 @@ export default function CreateLink(){
                         </div>
                         <div className="flex flex-col items-start gap-1 text-left">
                             <p className="font-semibold text-sm">Auto-generated QR</p>
-                            <p className="text-(--text) text-xs">Every link automatically creates a high-resolution QR code for print.</p>
+                            <p className="text-(--text) text-xs">
+                                Every link automatically creates a high-resolution QR code for print.
+                            </p>
                         </div>
                     </section>
                 </footer>

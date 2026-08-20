@@ -5,6 +5,7 @@ import { IoPerson } from "react-icons/io5";
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { clearSession, createSession } from "../../redux/reducer/session";
+import { FaPlus } from "react-icons/fa6";
 
 export default function Navbar(){
     const [session, setSession] = useState(null)
@@ -102,19 +103,21 @@ export default function Navbar(){
 
             <section className="flex gap-4 text-sm">
                 <Link 
+                to={"/create-link"}
+                className="bg-linear-to-r from-[#004AC6] to-[#2563EB] cent-content 
+                rounded-lg gap-2 shadow-button cursor-pointer font-semibold text-white h-9 w-34.75"
+                type="button">
+                    <FaPlus/>
+                    Custom Link
+                </Link>
+
+                <Link 
                 className="cent-content"
                 to={"/profile"}>
                     <div className="h-10 w-10 cent-content rounded-full bg-(--border)">
                         <IoPerson className="text-(--mute)"/>
                     </div>
                 </Link>
-                {/* <Link 
-                to={"/register"}
-                className="bg-(--primary) cent-content rounded-lg shadow-button cursor-pointer 
-                font-semibold text-white h-9 w-21.75"
-                type="button">
-                    Log Out
-                </Link> */}
             </section>
             }
         </div>
