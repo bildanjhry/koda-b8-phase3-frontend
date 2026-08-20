@@ -4,7 +4,7 @@ import classNames from "classnames"
 import { IoPerson } from "react-icons/io5";
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { createSession } from "../../redux/reducer/session";
+import { clearSession, createSession } from "../../redux/reducer/session";
 
 export default function Navbar(){
     const [session, setSession] = useState(null)
@@ -37,6 +37,7 @@ export default function Navbar(){
                 setSession(response.results)
                 dispatch(createSession(response.results))
             } catch(err){
+                dispatch(clearSession())
                 console.error(err.message)
             }
         }
