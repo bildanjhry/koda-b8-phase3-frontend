@@ -4,10 +4,13 @@ import { FiCopy } from "react-icons/fi";
 import { Link, useNavigate } from "react-router";
 import { MdLink } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { CgSpinnerTwo } from "react-icons/cg";
+import classNames from "classnames";
 
 export default function Banner(){
     const [shorten, setShorten] = useState("")
     const [activeCopy, setActiveCopy] = useState(false)
+    const [loading, setLoading] = useState(false)
     const session = useSelector(state => state.session.session)
     const navigate = useNavigate()
 
@@ -16,6 +19,7 @@ export default function Banner(){
             navigate("/login")
         }
         e.preventDefault()
+        setLoading(true)
         try{
             const data = new FormData(e.target)
             const formated = new URLSearchParams(data)
@@ -34,6 +38,8 @@ export default function Banner(){
 
         } catch(err){
             console.log(err)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -92,10 +98,18 @@ export default function Banner(){
                         id="url"
                         name="url"
                         placeholder="https://very-long-architectural-url.com/asset-id-99238-x1"
-                        className="flex-1 h-full pt-1 outline-none"/>
+                        className="flex-1 h-full pt-1 pr-4 outline-none"/>
+                        
                         <button type="submit" 
-                        className="w-[20%] cursor-pointer text-white 
-                        rounded-md font-bold h-12 bg-linear-to-r from-(--primary) to-(--primary)/90">
+                        disabled={loading}
+                        className={classNames(`w-[20%] cursor-pointer text-white 
+                        rounded-md font-bold h-12 cent-content gap-2`,
+                        {'bg-linear-to-r from-(--primary) to-(--primary)/90': !loading},
+                        {'bg-(--primary)/70': loading}
+                        )}>
+                        {loading &&
+                            <CgSpinnerTwo className="text-white/70 text-lg animate-spin"/>
+                        }
                             Shorten
                         </button>
                     </div>

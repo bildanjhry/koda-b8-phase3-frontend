@@ -10,15 +10,20 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa6";
+import { CgSpinnerTwo } from "react-icons/cg";
+
+import LinksSkel from "../components/skeletons/Links";
 
 export default function MyLinks(){
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
+    const [loadingDel, setLoadingDel] = useState(false)
     const [activeCopy, setActiveCopy] = useState(false)
     const [url, setUrl] = useState("")
 
     useEffect(() => {
         async function getDataLinks() {
+            setLoading(true)
             try {
                 const API = import.meta.env.VITE_API_URL
                 const result = await fetch(`${API}/api/links`, {
@@ -37,6 +42,7 @@ export default function MyLinks(){
 
     async function handleDelete(id) {
         try{
+            setLoadingDel(true)
             const API = import.meta.env.VITE_API_URL
             const result = await fetch(`${API}/api/links/${id}`, {
                 method:"DELETE",
@@ -50,6 +56,8 @@ export default function MyLinks(){
             setData([])
         } catch(err){
             console.error(err.message)
+        } finally {
+            setLoadingDel(false)
         }
     }
 
@@ -103,8 +111,8 @@ export default function MyLinks(){
                 </header>
 
                 <main className="flex flex-col gap-5 mt-10 w-full">
-      
-                    {data.length > 0 ? data?.map((item) => (
+                    { loading ? <LinksSkel/> :
+                    data.length > 0 ? data?.map((item) => (
                         <div
                          key={item.id}
                          className="flex h-28.5 w-full bg-white shadow-sm rounded-md px-5 ">
@@ -147,11 +155,16 @@ export default function MyLinks(){
                                 className="bg-(--accent) text-[#394C84] cursor-pointer hover:bg-(--accent)/70 p-2 rounded-md">
                                     <MdContentCopy/>
                                 </button>
+
                                 <button
                                 type="button" 
+                                disabled={loadingDel}
                                 onClick={() => {handleDelete(item.id)}}
                                 className="p-1 cursor-pointer text-(--more-mute)">
-                                    <RiDeleteBin6Line/>
+                                    {loadingDel ? 
+                                    <CgSpinnerTwo className="animate-spin text-red-600"/>:
+                                    <RiDeleteBin6Line className="text-red-600"/>
+                                    }
                                 </button>
                             </div>
                         </div>

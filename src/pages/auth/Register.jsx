@@ -2,12 +2,16 @@ import { Link } from "react-router"
 import { useNavigate } from "react-router"
 import { HiArrowRight } from "react-icons/hi2";
 import { FaArrowRight } from "react-icons/fa6";
+import classNames from "classnames";
+import { useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 export default function Register() {
 		const navigate = useNavigate()
-
+        const [loading, setLoading] = useState()
 		async function handleSubmit(e){
 			e.preventDefault()
+            setLoading(true)
 			try{
 				const data = new FormData(e.target)
 				const formated = new URLSearchParams(data)
@@ -29,7 +33,9 @@ export default function Register() {
 
 			} catch(err){
 				console.error(err.message)
-			}
+			} finally {
+                setLoading(false)
+            }
 		}
     return (
         <div className="cent-content w-full h-screen overflow-hidden gap-7 flex-col bg-slate-50 relative">
@@ -44,7 +50,8 @@ export default function Register() {
             </div>
 
             <p className="text-xl font-[1000]">ShortLink</p>
-            <div className="flex flex-col w-100 rounded-lg z-10 border border-(--border) shadow-sm bg-white p-9">
+            <div className="flex flex-col w-100 rounded-lg z-10 
+            border border-(--border) shadow-sm bg-white p-9">
                 <form 
                     onSubmit={handleSubmit}
                     action="" 
@@ -60,17 +67,21 @@ export default function Register() {
                             <input
                                 required
                                 placeholder="John Doe" 
-                                className="h-10.5 text-[14px] outline-none pl-4 rounded-md border border-(--border)"
+                                className="h-10.5 text-[14px] outline-none 
+                                pl-4 rounded-md border border-(--border)"
                                 type="text" name="name" id="name" />
                         </div>
+
                         <div className="flex flex-col text-left gap-1">
                             <label htmlFor="email">Email Address</label>
                             <input
                                 required
                                 placeholder="name@company.com" 
-                                className="h-10.5 text-[14px] outline-none pl-4 rounded-md border border-(--border)"
+                                className="h-10.5 text-[14px] outline-none 
+                                pl-4 rounded-md border border-(--border)"
                                 type="text" name="email" id="email" />
                         </div>
+
                         <div className="flex flex-col text-left gap-1">
                             <div className="flex items-center justify-between">
                                 <label htmlFor="password">Password</label>
@@ -81,6 +92,7 @@ export default function Register() {
                                 className="h-10.5 outline-none pl-4 rounded-md border border-(--border)"
                                 type="password" name="password" id="password" />
                         </div>
+
                         <div className="flex flex-col text-left gap-1">
                             <div className="flex items-center justify-between">
                                 <label htmlFor="password-confirm">Confirm Password</label>
@@ -91,10 +103,18 @@ export default function Register() {
                                 className="h-10.5 outline-none pl-4 rounded-md border border-(--border)"
                                 type="password" name="password-confirm" id="password-confirm" />
                         </div>
+
                         <button 
                             type="submit"
-                            className="w-full mt-3 cursor-pointer 
-                            shadow-button cent-content font-semibold gap-2 h-11 rounded-md bg-(--primary) text-white">
+                            className={classNames(
+                            `w-full cursor-pointer shadow-button cent-content font-semibold gap-2 h-11 
+                            rounded-md  text-white`,
+                            {'bg-(--primary)/70': loading},
+                            {'bg-(--primary)': !loading}
+                            )}>
+                            {loading &&
+                                <CgSpinnerTwo className="text-white/70 text-lg animate-spin"/>
+                            }
                             <p>Sign Up</p>
                             <FaArrowRight/>
                         </button>

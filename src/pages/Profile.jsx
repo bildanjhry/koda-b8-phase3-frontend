@@ -6,13 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { clearSession } from "../redux/reducer/session";
 import dateFormat from "../libs/date-format";
+import { useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 export default function Profile(){
     const navigate = useNavigate()
+    const [loading, setLoading] = useState()
     const session = useSelector(state => state.session.session)
     const dispatch = useDispatch()
 
     async function handleLogout(){
+        setLoading(true)
         try{
             const API = import.meta.env.VITE_API_URL
             const result = await fetch(`${API}/api/logout`, {
@@ -27,6 +31,8 @@ export default function Profile(){
             dispatch(clearSession())
         } catch(err){
             console.error(err.message)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -111,10 +117,12 @@ export default function Profile(){
                         <button 
                         onClick={handleLogout}
                         type="button"
+                        disabled={loading}
                         className="w-full t h-11 rounded-lg bg-(--border)/60 
                         border border-(--more-mute)/20 cursor-pointer 
                         text-(--text) font-semibold cent-content text-sm gap-2">
-                            <TbLogout size={17}/>
+                            { loading ? <CgSpinnerTwo size={17} className="animate-spin"/> 
+                            :  <TbLogout size={17}/>}
                             <p>Logout Session</p>
                         </button>
 
