@@ -1,16 +1,45 @@
-# React + Vite
+# ShortLink
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-19.2.8-61DAFB?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8.2.0-646CFF?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3.3-06B6D4?logo=tailwindcss&logoColor=white)
+![React Redux](https://img.shields.io/badge/React_Redux-9.3.0-764ABC?logo=redux&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-8.3.0-CA4245?logo=reactrouter&logoColor=white)
+![Redux Persist](https://img.shields.io/badge/Redux_Persist-6.0.0-764ABC?logo=redux&logoColor=white)
+![React Icons](https://img.shields.io/badge/React_Icons-5.7.0-61DAFB?logo=react&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-10.8.0-4B32C3?logo=eslint&logoColor=white)
 
-Currently, two official plugins are available:
+Applikasi Frontend dari ShortLink Web, yang dimana ShortLink sendiri merupakan applikasi yang mengubah suatu link(url) panjang menjadi jauh lebih ringkas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Features:
+- Authentication
+- Shorten url link
+- Manage personal links
+- Redirect through Backend app
 
-## React Compiler
+## Work with this project locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Clone repository:
+```git
+git clone https://github.com/bildanjhry/koda-b8-phase3-frontend.git
+```
 
-## Expanding the ESLint configuration
+### Install Depedencies:
+```shel
+npm i
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Create .env and it should includes this:
+```env
+VITE_API_URL=<backend_url>
+```
+
+### Run app with vite:
+```bash
+npm run dev
+```
+
+Untuk melihat versi yang telah dideploy silahkan kunjungi:
+[x-shrt.vercel.app](https://x-shrt.vercel.app)
+
+#### @author: [space_ranger](https://github.com/bildanjhry)
