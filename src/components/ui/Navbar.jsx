@@ -88,14 +88,14 @@ export default function Navbar(){
             { !session ?
             <section className="flex gap-7 text-sm">
                 <Link 
-                className="h-9 cent-content"
+                className="h-9 cent-content font-semibold"
                 to={"/login"}>
                     Login
                 </Link>
                 <Link 
                 to={"/register"}
                 className="bg-(--primary) cent-content rounded-lg shadow-button cursor-pointer 
-                font-semibold text-white h-9 w-21.75"
+                font-semibold text-white h-9 w-22"
                 type="button">
                     Sign Up
                 </Link>

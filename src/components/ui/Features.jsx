@@ -15,9 +15,9 @@ const features = [
     icon: PiBracketsCurly,
     title: "Custom Slugs",
     desc: "Maintain brand authority with readable, custom link endings that resonate with your digital audience.",
-    iconBg: "bg-indigo-100",
-    iconColor: "text-indigo-600",
-    barColor: "bg-indigo-200",
+    iconBg: "bg-emerald-100",
+    iconColor: "text-emerald-600",
+    barColor: "bg-emerald-200",
   },
   {
     icon: MdOutlineGroups,
@@ -31,7 +31,7 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="bg-slate-50 py-20 h-145 px-6">
+    <section className="bg-slate-50 py-20 min-h-145 px-6">
       <div className="max-w-5xl mx-auto flex flex-col gap-2">
         <p className="text-xs font-bold tracking-wider text-(--primary) mb-2">
           ARCHITECTURAL FEATURES
@@ -40,7 +40,7 @@ export default function Features() {
           Built for Enterprise Precision
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 mt-2 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map(({ icon: Icon, title, desc, iconBg, iconColor, barColor }) => (
             <div
               key={title}
