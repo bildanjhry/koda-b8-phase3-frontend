@@ -19,12 +19,17 @@ Applikasi Frontend dari ShortLink Web, yang dimana ShortLink sendiri merupakan a
 
 ## Work with this project locally
 
-### Clone repository:
+### Clone repository
 ```git
 git clone https://github.com/bildanjhry/koda-b8-phase3-frontend.git
 ```
 
-### Install Depedencies:
+### Go to Directory
+```shel
+cd ./koda-b8-phase3-frontend
+```
+
+### Install Depedencies
 ```shel
 npm i
 ```
@@ -34,7 +39,7 @@ npm i
 VITE_API_URL=<backend_url>
 ```
 
-### Run app with vite:
+### Run app with vite
 ```bash
 npm run dev
 ```
