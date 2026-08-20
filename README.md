@@ -43,3 +43,8 @@ Untuk melihat versi yang telah dideploy silahkan kunjungi:
 [x-shrt.vercel.app](https://x-shrt.vercel.app)
 
 #### @author: [space_ranger](https://github.com/bildanjhry)
+
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
