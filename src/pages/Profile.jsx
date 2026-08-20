@@ -50,7 +50,7 @@ export default function Profile(){
 
                             </div>
                             <div className="h-full flex justify-center items-start flex-col ">
-                                <p className="text-(--text-h) font-semibold">Alex Thompson</p>
+                                <p className="text-(--text-h) font-semibold">{session.profile.name}</p>
                                 <p className="text-(--text) text-[14px]">Software Engineer at Digital Flow</p>
                             </div>
                         </section>

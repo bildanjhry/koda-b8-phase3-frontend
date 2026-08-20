@@ -69,7 +69,7 @@ export default function MyLinks(){
     }
 
     return (
-        <div className="pb-10 bg-slate-50 flex flex-col items-center">
+        <div className="pb-10 bg-slate-50 h-screen flex flex-col items-center">
             <div className="flex flex-col w-2xl">
 
                 <header className="flex flex-col gap-7">
@@ -103,7 +103,8 @@ export default function MyLinks(){
                 </header>
 
                 <main className="flex flex-col gap-5 mt-10 w-full">
-                    {data?.map((item) => (
+      
+                    {data.length > 0 ? data?.map((item) => (
                         <div
                          key={item.id}
                          className="flex h-28.5 w-full bg-white shadow-sm rounded-md px-5 ">
@@ -154,7 +155,11 @@ export default function MyLinks(){
                                 </button>
                             </div>
                         </div>
-                    ))}
+                    )) :
+                    <div className="cent-content w-full h-80">
+                        <h1>Links are <span className="text-(--mute)">Empty</span></h1>
+                    </div>
+                    }
                 </main>
 
                 <footer className="h-20 mt-5 flex justify-between items-center w-full">

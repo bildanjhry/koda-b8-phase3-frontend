@@ -54,7 +54,15 @@ export default function Register() {
                         <p>Join the elite architects of the web.</p>
                     </header>
 
-                    <main className="flex mt-2 flex-col gap-5 text-[14px]">
+                    <main className="flex mt-2 flex-col gap-2 text-[14px]">
+                        <div className="flex flex-col text-left gap-1">
+                            <label htmlFor="name">Fullname</label>
+                            <input
+                                required
+                                placeholder="John Doe" 
+                                className="h-10.5 text-[14px] outline-none pl-4 rounded-md border border-(--border)"
+                                type="text" name="name" id="name" />
+                        </div>
                         <div className="flex flex-col text-left gap-1">
                             <label htmlFor="email">Email Address</label>
                             <input
@@ -75,23 +83,23 @@ export default function Register() {
                         </div>
                         <div className="flex flex-col text-left gap-1">
                             <div className="flex items-center justify-between">
-                                <label htmlFor="password">Confirm Password</label>
+                                <label htmlFor="password-confirm">Confirm Password</label>
                             </div>
                             <input
                                 required
-                                placeholder="Your secret password" 
+                                placeholder="Your secret password-confirm" 
                                 className="h-10.5 outline-none pl-4 rounded-md border border-(--border)"
-                                type="password" name="password" id="password" />
+                                type="password" name="password-confirm" id="password-confirm" />
                         </div>
                         <button 
                             type="submit"
-                            className="w-full cursor-pointer 
+                            className="w-full mt-3 cursor-pointer 
                             shadow-button cent-content font-semibold gap-2 h-11 rounded-md bg-(--primary) text-white">
                             <p>Sign Up</p>
                             <FaArrowRight/>
                         </button>
 
-                        <p>By signing up, you agree to our Terms of Service and </p>
+                        <p className="top-2 relative text-xs">By signing up, you agree to our <span className="text-(--primary)">Terms of Service</span> and <span className="text-(--primary)">Privacy Policy</span></p>
 
                     </main>
                 </form>
