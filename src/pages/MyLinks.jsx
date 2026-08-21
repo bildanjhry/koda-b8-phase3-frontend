@@ -24,7 +24,6 @@ export default function MyLinks(){
 
     useEffect(() => {
         async function getDataLinks() {
-            setLoading(true)
             try {
                 const API = import.meta.env.VITE_API_URL
                 const result = await fetch(`${API}/api/links`, {

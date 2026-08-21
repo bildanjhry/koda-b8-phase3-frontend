@@ -3,10 +3,10 @@ import { MdOutlineNotificationsNone } from "react-icons/md";
 import { MdOutlineSecurity } from "react-icons/md";
 import { TbLogout } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { clearSession } from "../redux/reducer/session";
 import dateFormat from "../libs/date-format";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { LuImageOff } from "react-icons/lu";
 
@@ -15,6 +15,23 @@ export default function Profile(){
     const [loading, setLoading] = useState()
     const session = useSelector(state => state.session.session)
     const dispatch = useDispatch()
+    const [data, setData] = useState([])
+
+        useEffect(() => {
+            async function getDataLinks() {
+                try {
+                    const API = import.meta.env.VITE_API_URL
+                    const result = await fetch(`${API}/api/links`, {
+                        credentials:"include"
+                    })
+                    const res = await result.json()
+                    setData(res.results.links)
+                } catch (err) {
+                    console.log(err.message)
+                } 
+            }
+             getDataLinks()
+        },[])
 
     async function handleLogout(){
         setLoading(true)
@@ -83,13 +100,13 @@ export default function Profile(){
                                 </div>
                                 <div className="flex text-white flex-col  justify-center">
                                     <p className="tracking-wider text-xs">ACTIVE ASSETS</p>
-                                    <p className="text-xl font-[1000]">12</p>
+                                    <p className="text-xl font-[1000]">{data.length}</p>
                                 </div>
                             </div>
-                            <div className="h-8 cent-content w-27 
+                            <Link to={"/my-links"} className="h-8 cent-content w-27 
                             border border-white/20 text-xs font-semibold text-white rounded-lg bg-[#FFFFFF1A]">
                                 VIEW LINKS
-                            </div>
+                            </Link>
                         </section>
 
                         <section className="flex flex-col mt-3 gap-5 text-sm w-full ">
