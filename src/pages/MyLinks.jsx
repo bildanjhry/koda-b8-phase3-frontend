@@ -124,7 +124,7 @@ export default function MyLinks(){
                                     <span className="text-lg">
                                         <IoLink/>
                                     </span>
-                                    <a href={item.shorted_url}>
+                                    <a href={`${item.shorted_url}`} target="_blank" rel="noreferrer">
                                        {`${item.shorted_url}`}
                                     </a>
                                 </div>

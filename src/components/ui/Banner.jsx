@@ -125,9 +125,9 @@ export default function Banner(){
                         <FiLink2 className="text-lg"/>
                     </button>
                     <div className="flex-1 text-left pl-2 h-[80%] flex  items-center bg-gray-50">
-                        <Link to={shorten}>
+                        <a href={shorten} target="_blank">
                             <p className="text-(--primary)">{shorten}</p>
-                        </Link>
+                        </a>
                     </div>
                     
                     { activeCopy &&
