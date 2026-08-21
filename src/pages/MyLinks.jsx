@@ -16,7 +16,7 @@ import LinksSkel from "../components/skeletons/Links";
 
 export default function MyLinks(){
     const [data, setData] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [loadingDel, setLoadingDel] = useState(false)
     const [activeCopy, setActiveCopy] = useState(false)
     const [linkId, setLinkId] = useState(null)
@@ -172,6 +172,7 @@ export default function MyLinks(){
                             </div>
                         </div>
                     )) :
+                     !loading &&
                     <div className="cent-content w-full h-80">
                         <h1>Links are <span className="text-(--mute)">Empty</span></h1>
                     </div>
