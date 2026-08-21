@@ -5,15 +5,27 @@ import { FaArrowRight } from "react-icons/fa6";
 import classNames from "classnames";
 import { useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
+import Alert from "../../components/ui/Alert";
 
 export default function Register() {
 		const navigate = useNavigate()
         const [loading, setLoading] = useState()
+        const [alert, setAlert] = useState({
+            event:false, 
+            status:null, 
+            message:""
+        })
 		async function handleSubmit(e){
 			e.preventDefault()
             setLoading(true)
 			try{
 				const data = new FormData(e.target)
+                if(data.get("password") !== data.get("password-confirm")){
+                    throw new Error("Make sure password are matches")
+                }
+                if(data.get("password").length < 8){
+                     throw new Error("Minimum password is 8 characters")
+                }
 				const formated = new URLSearchParams(data)
 				const API = import.meta.env.VITE_API_URL
 				const res = await fetch(`${API}/api/register`, {
@@ -28,17 +40,31 @@ export default function Register() {
 				if(!result.success){
 					throw new Error(result.message)
 				}
-				alert(result.message)
-				navigate("/login")
+                setAlert({
+                    event:true, 
+                    status:"SUCCESS", 
+                    message:result.message
+                })
+                setTimeout(() => {
+                    navigate("/login")
+                },2000)
 
 			} catch(err){
+                setAlert({
+                    event:true, 
+                    status:"FAILED", 
+                    message:err.message
+                })
 				console.error(err.message)
 			} finally {
                 setLoading(false)
+                setTimeout(() => {
+                    setAlert({event:false, status:null, message:""})
+                },2000)
             }
 		}
     return (
-        <div className="cent-content w-full h-screen overflow-hidden gap-7 flex-col bg-slate-50 relative">
+        <div className="cent-content w-full min-h-screen overflow-hidden gap-7 flex-col bg-slate-50 relative">
             <div className="w-lg h-90.25 absolute -left-25 -top-20 
             rounded-full bg-[#004AC60D] blur-2xl z-5">
 
@@ -52,6 +78,9 @@ export default function Register() {
             <p className="text-xl font-[1000]">ShortLink</p>
             <div className="flex flex-col w-100 rounded-lg z-10 
             border border-(--border) shadow-sm bg-white p-9">
+                { alert.event && 
+                    <Alert alert={alert}/>
+                }              
                 <form 
                     onSubmit={handleSubmit}
                     action="" 
@@ -99,7 +128,7 @@ export default function Register() {
                             </div>
                             <input
                                 required
-                                placeholder="Your secret password-confirm" 
+                                placeholder="Your secret password confirm" 
                                 className="h-10.5 outline-none pl-4 rounded-md border border-(--border)"
                                 type="password" name="password-confirm" id="password-confirm" />
                         </div>
@@ -107,7 +136,7 @@ export default function Register() {
                         <button 
                             type="submit"
                             className={classNames(
-                            `w-full cursor-pointer shadow-button cent-content font-semibold gap-2 h-11 
+                            `w-full mt-3 cursor-pointer shadow-button cent-content font-semibold gap-2 h-11 
                             rounded-md  text-white`,
                             {'bg-(--primary)/70': loading},
                             {'bg-(--primary)': !loading}

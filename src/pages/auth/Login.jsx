@@ -5,10 +5,17 @@ import { FaArrowRight } from "react-icons/fa6";
 import { useState } from "react";
 import classNames from "classnames";
 import { CgSpinnerTwo } from "react-icons/cg";
+import Alert from "../../components/ui/Alert";
 
 export default function Login() {
 	const navigate = useNavigate()
     const [loading, setLoading] = useState()
+    const [alert, setAlert] = useState({
+        event:false, 
+        status:null, 
+        message:""
+    })
+
 	async function handleSubmit(e){
 		e.preventDefault()
         setLoading(true)
@@ -28,13 +35,20 @@ export default function Login() {
 			if(!result.success){
 				throw new Error(result.message)
 			}
-			alert(result.message)
 			navigate("/")
 
 		} catch(err){
+            setAlert({
+                event:true, 
+                status:"FAILED", 
+                message:err.message
+            })
 			console.error(err.message)
 		} finally {
             setLoading(false)
+            setTimeout(() => {
+                setAlert({event:false, status:null, message:""})
+            },2000)
         }
 	}
 
@@ -52,6 +66,9 @@ export default function Login() {
 
             <p className="text-xl font-[1000]">ShortLink</p>
             <div className="flex flex-col w-100 rounded-lg z-10 border border-(--border) shadow-sm bg-white p-9">
+                { alert.event && 
+                    <Alert alert={alert}/>
+                }
                 <form 
 					onSubmit={handleSubmit}
 				    action="" 

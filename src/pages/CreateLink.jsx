@@ -8,6 +8,7 @@ import { MdQrCode2 } from "react-icons/md";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { useState } from "react";
 import classNames from "classnames";
+import Alert from "../components/ui/Alert";
 
 export default function CreateLink(){
     const [loading, setLoading] = useState(false)
@@ -76,13 +77,7 @@ export default function CreateLink(){
                 border-(--border) w-full h-fit p-7">
 
                     { alert.event &&
-                    <div className={classNames(
-                     `w-full h-11 mb-2 cent-content text-[14px] rounded-lg`,
-                     {'bg-green-100 text-green-600': alert.status === "SUCCESS"},
-                     {'bg-red-100 text-red-600': alert.status === "FAILED"}
-                     )}>
-                        <p>{alert.message}</p>
-                    </div>
+                        <Alert alert={alert}/>
                     }
 
                     <form
